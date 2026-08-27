@@ -1,21 +1,30 @@
 <!DOCTYPE html>
-<html>
-<head><link rel="stylesheet" href="style.css"><title>Cloner by Pitt</title></head>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <link rel="stylesheet" href="style.css">
+    <title>Cloner by Pitt</title>
+</head>
 <body>
 <div class="container">
+    <div class="logo">CLONER BY PITT</div>
     <h2>Информация</h2>
-    <p>Проверка данных...</p>
-    <div class="success">Добро пожаловать, <span id="username">danilka</span>! Теперь введите Discord токен</div>
+    <div class="info-box">Проверка данных...</div>
+    <div class="success-box">Добро пожаловать, <span id="username">danilka</span>! Теперь введите Discord токен</div>
+
     <div class="user-info">
         <span>Вы вошли как <strong id="userDisplay"></strong></span>
-        <button onclick="logout()">Выйти</button>
+        <button class="btn-logout" onclick="logout()">Выйти</button>
     </div>
+
     <h3>Авторизация через Discord токен</h3>
-    <p>Для доступа к функциям клонирования введите ваш Discord токен</p>
-    <input id="discordToken" placeholder="Введите ваш Discord токен" style="width:80%">
-    <button onclick="saveToken()">Войти через токен</button>
+    <p class="hint">Для доступа к функциям клонирования введите ваш Discord токен</p>
+    <input id="discordToken" placeholder="Введите ваш Discord токен" inputmode="text" style="width:90%">
+    <button class="btn-primary" onclick="saveToken()">Войти через токен</button>
+
     <div class="support">Поддержка</div>
-    <a href="#">Как получить Discord токен?</a>
+    <a class="help-link" href="#">Как получить Discord токен?</a>
 </div>
 <script src="script.js"></script>
 </body>

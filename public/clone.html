@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-<html>
-<head><link rel="stylesheet" href="style.css"><title>Cloner by Pitt</title></head>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <link rel="stylesheet" href="style.css">
+    <title>Cloner by Pitt</title>
+</head>
 <body>
 <div class="container">
-    <button onclick="history.back()">← Назад</button>
-    <h1>Cloner by Pitt</h1>
+    <button class="back-btn" onclick="history.back()">← Назад</button>
+    <div class="logo">CLONER BY PITT</div>
     <h3>Клонирование сервера</h3>
     <div class="profile">профиль</div>
 
     <div class="clone-section">
         <label>Сервер-источник</label>
         <select id="sourceGuild"></select>
-        <button onclick="previewStructure()">Просмотр структуры сервера</button>
+        <button class="btn-secondary" onclick="previewStructure()">Просмотр структуры сервера</button>
 
         <label>Сервер-копия</label>
         <select id="targetGuild"></select>
@@ -32,8 +37,8 @@
         <label><input type="checkbox"> Звуки</label>
     </div>
 
-    <button onclick="startClone()">Начать клонирование</button>
-    <div id="stats">Статистика</div>
+    <button class="btn-primary" onclick="startClone()">Начать клонирование</button>
+    <div id="stats" class="stats">Статистика</div>
     <div class="support">Поддержка</div>
 </div>
 <script src="script.js"></script>
