@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="style.css"><title>Cloner by Pitt</title></head>
+<body>
+<div class="container">
+    <h2>Информация</h2>
+    <p>Проверка данных...</p>
+    <div class="success">Добро пожаловать, <span id="username">danilka</span>! Теперь введите Discord токен</div>
+    <div class="user-info">
+        <span>Вы вошли как <strong id="userDisplay"></strong></span>
+        <button onclick="logout()">Выйти</button>
+    </div>
+    <h3>Авторизация через Discord токен</h3>
+    <p>Для доступа к функциям клонирования введите ваш Discord токен</p>
+    <input id="discordToken" placeholder="Введите ваш Discord токен" style="width:80%">
+    <button onclick="saveToken()">Войти через токен</button>
+    <div class="support">Поддержка</div>
+    <a href="#">Как получить Discord токен?</a>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

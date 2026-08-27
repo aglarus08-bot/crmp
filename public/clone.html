@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="style.css"><title>Cloner by Pitt</title></head>
+<body>
+<div class="container">
+    <button onclick="history.back()">← Назад</button>
+    <h1>Cloner by Pitt</h1>
+    <h3>Клонирование сервера</h3>
+    <div class="profile">профиль</div>
+
+    <div class="clone-section">
+        <label>Сервер-источник</label>
+        <select id="sourceGuild"></select>
+        <button onclick="previewStructure()">Просмотр структуры сервера</button>
+
+        <label>Сервер-копия</label>
+        <select id="targetGuild"></select>
+    </div>
+
+    <div class="options">
+        <h4>Параметры клонирования</h4>
+        <label><input type="checkbox" checked> Ролей</label>
+        <label><input type="checkbox" checked> Каналов</label>
+        <label><input type="checkbox"> Категории</label>
+        <label><input type="checkbox" checked> Текстовые каналы</label>
+        <label><input type="checkbox" checked> Голосовые каналы</label>
+        <label><input type="checkbox"> Форум каналы</label>
+        <label><input type="checkbox"> Права доступа</label>
+        <label><input type="checkbox" checked> Настройки сервера</label>
+        <label><input type="checkbox"> Эмодзи</label>
+        <label><input type="checkbox"> Стикеры</label>
+        <label><input type="checkbox"> Звуки</label>
+    </div>
+
+    <button onclick="startClone()">Начать клонирование</button>
+    <div id="stats">Статистика</div>
+    <div class="support">Поддержка</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+body { background: #0d0d0d; color: #eee; font-family: Arial; }
+.container { max-width: 600px; margin: 40px auto; background: #1a1a1a; padding: 30px; border-radius: 12px; }
+h1, h2 { color: #b388ff; text-align: center; }
+input, select, button { display: block; width: 100%; margin: 10px 0; padding: 12px; border-radius: 6px; border: none; }
+button { background: #7c4dff; color: white; cursor: pointer; font-weight: bold; }
+.tabs button { display: inline-block; width: 48%; }
+.support { color: #888; text-align: center; margin-top: 20px; }
+.options label { display: block; }
