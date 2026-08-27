@@ -12,6 +12,7 @@ function login() {
     .then(data => {
         if (data.success) {
             currentUser = data.username;
+            localStorage.setItem('username', data.username);
             window.location.href = '/dashboard.html';
         } else alert('Ошибка входа: ' + data.error);
     });
@@ -31,7 +32,11 @@ function showLogin() {
 }
 
 function logout() {
-    fetch('/logout', { method: 'POST' }).then(() => window.location.href = '/');
+    fetch('/logout', { method: 'POST' }).then(() => {
+        localStorage.removeItem('discordToken');
+        localStorage.removeItem('username');
+        window.location.href = '/';
+    });
 }
 
 function saveToken() {
@@ -42,48 +47,19 @@ function saveToken() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Показываем имя пользователя на dashboard
     if (window.location.pathname.includes('dashboard.html')) {
         document.getElementById('userDisplay').textContent = localStorage.getItem('username') || 'гость';
-    }
-
-    if (window.location.pathname.includes('clone.html')) {
-        const token = localStorage.getItem('discordToken');
-        if (!token) {
-            alert('Токен не найден, вернитесь на страницу ввода');
-            window.location.href = '/dashboard.html';
-            return;
-        }
-        fetch('/get-guilds', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ token })
-        })
-        .then(r => r.json())
-        .then(data => {
-            if (data.success && data.guilds) {
-                const src = document.getElementById('sourceGuild');
-                const tgt = document.getElementById('targetGuild');
-                src.innerHTML = '';
-                tgt.innerHTML = '';
-                data.guilds.forEach(g => {
-                    src.innerHTML += `<option value="${g.id}">${g.name}</option>`;
-                    tgt.innerHTML += `<option value="${g.id}">${g.name}</option>`;
-                });
-            } else {
-                alert('Ошибка загрузки серверов: ' + (data.error || 'неизвестная ошибка'));
-            }
-        })
-        .catch(err => {
-            alert('Сетевая ошибка: ' + err.message);
-        });
+        document.getElementById('username').textContent = localStorage.getItem('username') || 'гость';
     }
 });
 
+// Просмотр структуры по ID (без списка серверов)
 function previewStructure() {
-    const guildId = document.getElementById('sourceGuild').value;
+    const guildId = document.getElementById('sourceId').value.trim();
     const token = localStorage.getItem('discordToken');
-    if (!guildId) return alert('Выберите сервер');
+    if (!guildId) return alert('Введите ID сервера-источника');
+    if (!token) return alert('Токен не найден');
+    
     fetch('/get-guild-structure', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -93,15 +69,23 @@ function previewStructure() {
     .then(data => {
         if (data.success) {
             alert(`Сервер: ${data.guild.name}\nКаналов: ${data.channels.length}\nРолей: ${data.roles.length}`);
-        } else alert('Ошибка: ' + data.error);
-    });
+        } else {
+            alert('Ошибка: ' + (data.error || 'неизвестно'));
+        }
+    })
+    .catch(err => alert('Сетевая ошибка: ' + err.message));
 }
 
+// Клонирование по ID из полей
 function startClone() {
-    const sourceId = document.getElementById('sourceGuild').value;
-    const targetId = document.getElementById('targetGuild').value;
-    if (!sourceId || !targetId) return alert('Выберите оба сервера');
+    const sourceId = document.getElementById('sourceId').value.trim();
+    const targetId = document.getElementById('targetId').value.trim();
     const token = localStorage.getItem('discordToken');
+    
+    if (!sourceId) return alert('Введите ID сервера-источника');
+    if (!targetId) return alert('Введите ID сервера-копии');
+    if (!token) return alert('Токен не найден');
+
     const checkboxes = document.querySelectorAll('.options input[type="checkbox"]');
     const options = {};
     checkboxes.forEach(cb => {
@@ -116,9 +100,11 @@ function startClone() {
         else if (label.includes('Звуки')) options.sounds = cb.checked;
         else if (label.includes('Права')) options.permissions = cb.checked;
         else if (label.includes('Форум')) options.forum = cb.checked;
-        else if (label.includes('Каналов')) options.channels = cb.checked; // для галочки "Каналов" общая
+        else if (label.includes('Каналов')) options.channels = cb.checked;
     });
 
+    document.getElementById('stats').innerHTML = '⏳ Клонирование началось...';
+    
     fetch('/clone', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -126,6 +112,9 @@ function startClone() {
     })
     .then(r => r.json())
     .then(data => {
-        document.getElementById('stats').innerHTML = data.success ? '✅ Клонирование завершено' : '❌ ' + data.error;
+        document.getElementById('stats').innerHTML = data.success ? '✅ Клонирование завершено' : '❌ Ошибка: ' + (data.error || 'неизвестно');
+    })
+    .catch(err => {
+        document.getElementById('stats').innerHTML = '❌ Сетевая ошибка: ' + err.message;
     });
 }
