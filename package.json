@@ -1,0 +1,14 @@
+{
+  "name": "cloner-by-pitt",
+  "version": "1.0",
+  "description": "Cloner by Pitt - Discord Server Cloner",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.6.0",
+    "express-session": "^1.17.3"
+  }
+}
