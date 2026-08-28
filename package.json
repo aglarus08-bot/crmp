@@ -1,14 +1,7 @@
 {
-  "name": "cloner-by-pitt",
-  "version": "1.0",
-  "description": "Cloner by Pitt - Discord Server Cloner",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "axios": "^1.6.0",
-    "express-session": "^1.17.3"
-  }
+  "name":"good-mobile-panel",
+  "version":"2.0.0",
+  "private":true,
+  "scripts":{"start":"node server.js","dev":"node --watch server.js"},
+  "dependencies":{"express":"^5.1.0","bcryptjs":"^3.0.2","jsonwebtoken":"^9.0.2","better-sqlite3":"^12.4.1"}
 }
