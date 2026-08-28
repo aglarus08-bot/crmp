@@ -190,7 +190,7 @@ app.get("/api/dashboard",auth,(req,res)=>{
  };
  res.json({stats,settings:s,servers:DB.prepare(`SELECT * FROM servers WHERE active=1 ORDER BY sort_order`).all()});
 });
-app.get("/api/users",auth,(req,res)=>res.json({items:DB.prepare(`SELECT u.id,u.login,u.name,u.role,u.active,u.created_at,p.name position FROM users u LEFT JOIN positions p ON p.id=u.position_id ORDER BY u.id DESC`).all()}));
+app.get("/api/users",auth,(req,res)=>res.json({items:DB.prepare(`SELECT u.id,u.login,u.name,u.role,u.active,u.created_at,u.position_id,p.name position,p.permissions FROM users u LEFT JOIN positions p ON p.id=u.position_id ORDER BY u.id DESC`).all()}));
 app.post("/api/users",auth,superadmin,(req,res)=>{
  try{
   const b=req.body;const hash=bcrypt.hashSync(b.password||"admin12345",12);
@@ -224,6 +224,6 @@ app.get("/api/public",(_,res)=>{
 });
 
 app.get("/api/health",(_,res)=>res.json({ok:true,time:new Date().toISOString()}));
-app.get("*",(req,res)=>res.sendFile(path.join(ROOT,"public","index.html")));
+app.get("/{*splat}",(req,res)=>res.sendFile(path.join(ROOT,"public","index.html")));
 
 app.listen(PORT,()=>console.log(`Good Mobile Panel: http://localhost:${PORT}`));
