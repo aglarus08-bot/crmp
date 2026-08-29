@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220">
+<rect width="600" height="220" rx="34" fill="#0b0c0d"/>
+<text x="48" y="105" font-family="Arial Black,Arial,sans-serif" font-size="76" font-weight="900" fill="#f2f2f2">GRAND</text>
+<text x="185" y="172" font-family="Arial Black,Arial,sans-serif" font-size="50" font-weight="900" fill="#d9d9d9">MOBILE</text>
+<circle cx="534" cy="55" r="18" fill="#54dd96"/><path d="M526 55l6 6 11-13" fill="none" stroke="#07110d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
