@@ -9,10 +9,10 @@ function closeModal(){$("#modal").classList.add("hidden")}
 document.addEventListener("click",e=>{if(e.target.matches("[data-close]"))closeModal()});
 
 function socialIcon(type){
-  if(type==="telegram") return "✈";
-  if(type==="discord") return "◈";
-  if(type==="vk") return "VK";
-  return "↗";
+  if(type==="telegram") return `<svg class="social-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.7 3.2 18.4 20c-.25 1.19-.9 1.48-1.82.92l-5-3.68-2.41 2.32c-.27.27-.5.5-1.03.5l.37-5.1 9.27-8.37c.4-.36-.09-.56-.62-.2L5.7 13.78.75 12.23c-1.08-.34-1.1-1.08.23-1.6L20.3 3.08c.9-.33 1.69.2 1.4.12Z"/></svg>`;
+  if(type==="discord") return `<svg class="social-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.54 5.2A16.2 16.2 0 0 0 15.56 4l-.5 1.03a14.2 14.2 0 0 0-6.12 0L8.44 4a16.2 16.2 0 0 0-3.98 1.2C1.95 9.08 1.27 12.86 1.61 16.59a16.4 16.4 0 0 0 4.9 2.47l1.19-1.63c-.66-.24-1.3-.54-1.9-.89l.47-.36c3.67 1.72 7.64 1.72 11.27 0l.48.36c-.61.35-1.25.65-1.91.9l1.18 1.62a16.4 16.4 0 0 0 4.91-2.47c.4-4.32-.68-8.07-2.66-11.39ZM8.5 14.45c-1.08 0-1.96-1-1.96-2.23S7.4 10 8.5 10s1.98 1 1.96 2.22c0 1.23-.87 2.23-1.96 2.23Zm7 0c-1.08 0-1.96-1-1.96-2.23s.87-2.22 1.96-2.22 1.98 1 1.96 2.22c0 1.23-.87 2.23-1.96 2.23Z"/></svg>`;
+  if(type==="vk") return `<span class="vk-icon">VK</span>`;
+  return `<span class="social-arrow">↗</span>`;
 }
 function renderSocial(){
   const s=site.settings;
@@ -65,8 +65,11 @@ function accountModal(me){
 $$("[data-copy]").forEach(()=>{});
 document.addEventListener("click",e=>{const b=e.target.closest("[data-copy]");if(b){navigator.clipboard?.writeText(b.dataset.copy);toast("IP скопирован")}});
 
-$("#downloadBtn").onclick=()=>{if(site.settings.apkUrl)location.href=site.settings.apkUrl;else toast("APK пока не загружен администратором")};
-$("#playBtn").onclick=()=>$("#servers").scrollIntoView({behavior:"smooth"});
+$("#playBtn").onclick=()=>{
+  const url=String(site.settings.apkUrl||"").trim();
+  if(!url){toast("APK пока не загружен администратором");return}
+  const a=document.createElement("a");a.href=url;a.download="Good-Mobile.apk";a.rel="noopener";document.body.appendChild(a);a.click();a.remove();
+};
 $("#ticketBtn").onclick=async()=>{const me=site.settings.user;if(!me)return authModal();ticketModal()};
 $("#myTicketsBtn").onclick=async()=>{if(!site.settings.user)return authModal();const d=await api("/api/tickets");openTicketsModal(d.tickets)};
 function ticketModal(){

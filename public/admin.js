@@ -32,6 +32,12 @@ function renderNews(){
 function renderSettings(){
   const s=state.settings;const f=$("#settingsForm");
   Object.keys(s).forEach(k=>{const el=f.elements[k];if(el)el.value=Array.isArray(s[k])?s[k].join(", "):s[k]});
+  const status=$("#apkStatus");
+  if(status){
+    status.innerHTML=s.apkUrl
+      ? `<span class="apk-ok">✓ APK загружен</span><small>${esc(s.apkUrl)}</small>`
+      : `<span>APK ещё не загружен</span>`;
+  }
 }
 function renderDonations(){
   $("#donationsAdmin").innerHTML=`<table class="admin-table"><thead><tr><th>#</th><th>Игрок</th><th>Сервер</th><th>Сумма</th><th>Метод</th><th>Статус</th></tr></thead><tbody>${state.donations.map(d=>`<tr><td>${d.id}</td><td><b>${esc(d.nickname)}</b><br>${esc(d.user_login||"")}</td><td>${esc(d.server_name||"—")}</td><td>${d.amount.toLocaleString("ru-RU")} ₽</td><td>${esc(d.method)}</td><td><select class="status-select" data-donation="${d.id}"><option value="pending" ${d.status==="pending"?"selected":""}>Ожидает</option><option value="paid" ${d.status==="paid"?"selected":""}>Оплачен</option><option value="cancelled" ${d.status==="cancelled"?"selected":""}>Отменён</option></select></td></tr>`).join("")}</tbody></table>`;
@@ -61,7 +67,26 @@ $$(".tab").forEach(t=>t.onclick=()=>switchTab(t.dataset.tab));
 $$("[data-switch]").forEach(b=>b.onclick=()=>switchTab(b.dataset.switch));
 function switchTab(name){$$(".tab").forEach(x=>x.classList.toggle("active",x.dataset.tab===name));$$(".admin-section").forEach(x=>x.classList.toggle("active",x.id==="tab-"+name))}
 $("#settingsForm").onsubmit=async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.target));d.donationMethods=d.donationMethods.split(",").map(x=>x.trim()).filter(Boolean);try{await api("/api/admin/settings",{method:"PUT",body:JSON.stringify(d)});await refreshAll();toast("Настройки сохранены")}catch(err){toast(err.message)}};
-$("#apkFile").onchange=async e=>{const file=e.target.files[0];if(!file)return;const fd=new FormData();fd.append("file",file);try{const r=await fetch("/api/upload",{method:"POST",body:fd});const d=await r.json();if(!r.ok)throw new Error(d.error);$("#uploadResult").innerHTML=`<div class="notice">Файл загружен: <b>${esc(d.name)}</b><br>Ссылка: <code>${esc(d.url)}</code></div>`;$("#settingsForm").elements.apkUrl.value=d.url;toast("APK загружен")}catch(err){toast(err.message)}};
+$("#apkFile").onchange=async e=>{
+  const file=e.target.files[0];
+  if(!file)return;
+  const fd=new FormData();
+  fd.append("file",file);
+  try{
+    $("#uploadResult").innerHTML=`<div class="notice">Загрузка <b>${esc(file.name)}</b>…</div>`;
+    const r=await fetch("/api/upload",{method:"POST",body:fd});
+    const d=await r.json();
+    if(!r.ok)throw new Error(d.error);
+    state.settings.apkUrl=d.url;
+    renderSettings();
+    $("#uploadResult").innerHTML=`<div class="notice">✓ APK <b>${esc(d.name)}</b> загружен. Путь сохранён автоматически.</div>`;
+    e.target.value="";
+    toast("APK загружен");
+  }catch(err){
+    $("#uploadResult").innerHTML="";
+    toast(err.message);
+  }
+};
 $$("[data-close]").forEach(x=>x.onclick=close);
 document.addEventListener("change",async e=>{if(e.target.dataset.donation){try{await api(`/api/admin/donations/${e.target.dataset.donation}`,{method:"PUT",body:JSON.stringify({status:e.target.value})});toast("Статус обновлён")}catch(err){toast(err.message)}}});
 $("#refreshDonations").onclick=refreshAll;$("#refreshTickets").onclick=refreshAll;
