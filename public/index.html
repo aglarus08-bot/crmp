@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07110d">
+  <title>Good Mobile</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="bg-orb orb-1"></div><div class="bg-orb orb-2"></div>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#home"><span class="brand-mark">GM</span><span>Good <b>Mobile</b></span></a>
+      <nav class="desktop-nav">
+        <a href="#servers">Сервера</a><a href="#news">Новости</a><a href="#donate">Донат</a><a href="#support">Поддержка</a>
+      </nav>
+      <div class="nav-actions">
+        <div id="socialMini" class="social-mini"></div>
+        <button class="btn btn-green" id="accountBtn">Войти</button>
+        <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> НОВОЕ ПОКОЛЕНИЕ MOBILE RP</div>
+        <h1 id="heroTitle">Добро пожаловать в <span>Good Mobile</span></h1>
+        <p id="heroText">Современный мобильный мир, где ты сам выбираешь путь.</p>
+        <div class="hero-buttons">
+          <button class="btn btn-green btn-lg" id="playBtn">▶ Играть</button>
+          <button class="btn btn-dark btn-lg" id="downloadBtn">▣ Скачать APK</button>
+        </div>
+        <div class="hero-points"><span>✓ Бесплатный вход</span><span>✓ Несколько серверов</span><span>✓ Поддержка на сайте</span></div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-top"><span>GOOD MOBILE</span><span class="status-dot">ONLINE</span></div>
+        <div class="hero-logo">GOOD<br><em>MOBILE</em></div>
+        <div class="hero-stat-grid">
+          <div><b id="totalOnline">0</b><span>онлайн</span></div>
+          <div><b id="serverCount">0</b><span>серверов</span></div>
+          <div><b>24/7</b><span>поддержка</span></div>
+          <div><b>FREE</b><span>игра</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="servers">
+      <div class="section-head"><div><div class="eyebrow">СЕРВЕРА</div><h2>Выбери свой мир</h2></div><span class="section-note">Статус обновляется из панели администратора</span></div>
+      <div id="serversGrid" class="server-grid"></div>
+    </section>
+
+    <section class="section wrap" id="news">
+      <div class="section-head"><div><div class="eyebrow">НОВОСТИ</div><h2>Последние события</h2></div></div>
+      <div id="newsGrid" class="news-grid"></div>
+    </section>
+
+    <section class="section wrap feature-section">
+      <div class="section-head"><div><div class="eyebrow">ПОЧЕМУ GOOD MOBILE</div><h2>Больше, чем просто сервер</h2></div></div>
+      <div id="featuresGrid" class="feature-grid"></div>
+    </section>
+
+    <section class="section wrap donate-section" id="donate">
+      <div class="donate-panel">
+        <div>
+          <div class="eyebrow">ПОДДЕРЖАТЬ ПРОЕКТ</div>
+          <h2>Донат без лишних шагов</h2>
+          <p>Выбери сервер, укажи ник и сумму. Заявка сохранится в твоём аккаунте, а администрация увидит её в панели.</p>
+        </div>
+        <form id="donateForm" class="form-grid">
+          <label>Игровой ник<input required name="nickname" placeholder="Например: Pitt"></label>
+          <label>Сервер<select name="serverId" id="donateServer"></select></label>
+          <label>Сумма, ₽<input required type="number" min="50" step="50" name="amount" placeholder="500"></label>
+          <label>Способ оплаты<select name="method" id="donateMethod"></select></label>
+          <label class="full">Комментарий<textarea name="comment" rows="3" placeholder="Необязательно"></textarea></label>
+          <button class="btn btn-green btn-lg full" type="submit">Создать заявку на донат</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="section wrap support-section" id="support">
+      <div class="support-card">
+        <div><div class="eyebrow">ПОДДЕРЖКА</div><h2>Нужна помощь?</h2><p id="supportText"></p></div>
+        <div class="support-actions"><button class="btn btn-green" id="ticketBtn">Открыть тикет</button><button class="btn btn-dark" id="myTicketsBtn">Мои обращения</button></div>
+      </div>
+    </section>
+
+    <section class="section wrap grand-section">
+      <div class="grand-card">
+        <div class="grand-logo"><img src="/assets/grand-mobile.svg" alt="Grand Mobile"></div>
+        <div><div class="eyebrow">ИГРОВОЙ БРЕНД</div><h2>Grand Mobile</h2><p>Отдельный бренд в экосистеме мобильного RP. Блок можно заменить или скрыть из админ-панели под ваш бренд-партнёр.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div><a class="brand" href="#home"><span class="brand-mark">GM</span><span>Good <b>Mobile</b></span></a><p id="siteDescription"></p></div>
+      <div><h4>Навигация</h4><a href="#servers">Сервера</a><a href="#news">Новости</a><a href="#donate">Донат</a><a href="#support">Поддержка</a></div>
+      <div><h4>Документы</h4><button class="link-btn" data-doc="terms">Условия пользования</button><button class="link-btn" data-doc="privacy">Политика конфиденциальности</button></div>
+      <div><h4>Соцсети</h4><div id="socialFooter" class="social-list"></div></div>
+    </div>
+    <div class="wrap footer-bottom"><span id="footerText"></span><a href="/admin.html">Admin</a></div>
+  </footer>
+
+  <div class="modal hidden" id="modal">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-box"><button class="modal-close" data-close>×</button><div id="modalContent"></div></div>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="/app.js"></script>
+</body>
+</html>

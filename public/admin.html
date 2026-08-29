@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07110d"><title>Good Mobile — Админ-панель</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="admin-body">
+  <header class="topbar"><div class="wrap nav"><a class="brand" href="/"><span class="brand-mark">GM</span><span>Good <b>Mobile</b></span></a><div class="nav-actions"><span id="adminUser" class="admin-user"></span><button class="btn btn-dark" id="logoutBtn">Выйти</button></div></div></header>
+  <main class="wrap admin-wrap">
+    <div class="admin-head"><div><div class="eyebrow">CONTROL CENTER</div><h1>Панель управления</h1><p>Здесь меняется весь контент, сервера, донат и поддержка.</p></div><a class="btn btn-green" href="/">Открыть сайт</a></div>
+    <div class="admin-tabs">
+      <button class="tab active" data-tab="overview">Обзор</button><button class="tab" data-tab="servers">Сервера</button><button class="tab" data-tab="news">Новости</button><button class="tab" data-tab="settings">Настройки</button><button class="tab" data-tab="donations">Донаты</button><button class="tab" data-tab="tickets">Поддержка</button>
+    </div>
+    <section class="admin-section active" id="tab-overview"><div id="overviewCards" class="stats-grid"></div><div class="admin-card"><h3>Быстрые действия</h3><div class="quick-actions"><button class="btn btn-green" data-switch="servers">+ Добавить сервер</button><button class="btn btn-dark" data-switch="news">+ Добавить новость</button><button class="btn btn-dark" data-switch="settings">Настроить APK/соцсети</button></div></div></section>
+    <section class="admin-section" id="tab-servers"><div class="admin-card"><div class="admin-card-head"><h3>Список серверов</h3><button class="btn btn-green" id="addServerBtn">+ Сервер</button></div><div id="serversAdmin"></div></div></section>
+    <section class="admin-section" id="tab-news"><div class="admin-card"><div class="admin-card-head"><h3>Новости</h3><button class="btn btn-green" id="addNewsBtn">+ Новость</button></div><div id="newsAdmin"></div></div></section>
+    <section class="admin-section" id="tab-settings"><form class="admin-card settings-form" id="settingsForm">
+      <div class="admin-card-head"><h3>Контент и ссылки</h3><button class="btn btn-green" type="submit">Сохранить всё</button></div>
+      <div class="form-grid"><label>Название сайта<input name="siteName"></label><label>Ссылка APK<input name="apkUrl" placeholder="/uploads/file.apk"></label><label class="full">Заголовок hero<textarea name="heroTitle" rows="2"></textarea></label><label class="full">Текст hero<textarea name="heroText" rows="3"></textarea></label><label class="full">Описание сайта<textarea name="siteDescription" rows="3"></textarea></label>
+      <label>Telegram<input name="telegramUrl"></label><label>Discord<input name="discordUrl"></label><label>VK<input name="vkUrl"></label><label>Ссылка оплаты<input name="donationPaymentUrl" placeholder="https://..."></label>
+      <label>Способы оплаты (через запятую)<input name="donationMethods"></label><label class="full">Текст поддержки<textarea name="supportText" rows="2"></textarea></label>
+      <label class="full">Условия пользования<textarea name="termsText" rows="8"></textarea></label><label class="full">Политика конфиденциальности<textarea name="privacyText" rows="8"></textarea></label><label class="full">Футер<input name="footerText"></label></div>
+      <div class="upload-row"><div><b>Загрузка APK с телефона/ПК</b><small>Выберите .apk — файл появится в папке uploads.</small></div><input type="file" id="apkFile" accept=".apk"></div><div id="uploadResult"></div>
+    </form></section>
+    <section class="admin-section" id="tab-donations"><div class="admin-card"><div class="admin-card-head"><h3>Донаты</h3><button class="btn btn-dark" id="refreshDonations">Обновить</button></div><div id="donationsAdmin"></div></div></section>
+    <section class="admin-section" id="tab-tickets"><div class="admin-card"><div class="admin-card-head"><h3>Поддержка</h3><button class="btn btn-dark" id="refreshTickets">Обновить</button></div><div id="ticketsAdmin"></div></div><div class="admin-card" id="ticketViewer"><h3>Выберите тикет</h3></div></section>
+  </main>
+  <div class="modal hidden" id="modal"><div class="modal-backdrop" data-close></div><div class="modal-box"><button class="modal-close" data-close>×</button><div id="modalContent"></div></div></div>
+  <div id="toast" class="toast"></div>
+  <script src="/admin.js"></script>
+</body>
+</html>
