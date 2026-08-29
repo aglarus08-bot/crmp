@@ -317,7 +317,9 @@ app.post("/api/upload",requireAdmin,(req,res)=>{
   upload.single("file")(req,res,(err)=>{
     if(err) return res.status(400).json({error:err.message});
     if(!req.file) return res.status(400).json({error:"Файл не выбран."});
-    res.json({url:`/uploads/${req.file.filename}`,name:req.file.originalname,size:req.file.size});
+    const url=`/uploads/${req.file.filename}`;
+    setSetting("apkUrl", url);
+    res.json({url,name:req.file.originalname,size:req.file.size});
   });
 });
 
