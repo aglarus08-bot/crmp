@@ -382,7 +382,7 @@ app.put("/api/admin/tickets/:id",requireAdmin,(req,res)=>{
 });
 
 app.get("/admin",(_,res)=>res.sendFile(path.join(ROOT,"public","admin.html")));
-app.get("*",(req,res)=>{
+app.get("/{*splat}",(req,res)=>{
   if(req.path.startsWith("/api/") || req.path.startsWith("/uploads/")) return res.status(404).end();
   res.sendFile(path.join(ROOT,"public","index.html"));
 });
